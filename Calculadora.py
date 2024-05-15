@@ -1,3 +1,6 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
 #-----Funções dos conjuntos-----#
 
 def valores_conjuntos():
@@ -71,6 +74,12 @@ def calcular_vertice(a, b, c):
         yv = (-(b**2) + calc_delta_value)/(4*a)
         print("O vértice da função é, Maximo: ", xv, "e Minimo: ", yv)
 
+def segundo_grau_grafico(a,b,c):
+    x = np.linspace(-10, 10, 1000)
+    y = a*x**2 + b*x + c
+    plt.plot(x, y)
+    plt.show()
+
 def resultado_funcao(calculo, a, b, c):
     if calculo == "1":
         calc_baskara(a, b, c)
@@ -78,9 +87,49 @@ def resultado_funcao(calculo, a, b, c):
         print("O valor da função em x é: ", função_em_x_pedido(a, b, c))
     elif calculo == "3":
         calcular_vertice(a, b, c)
-
+    elif calculo == "4":
+        segundo_grau_grafico(a, b, c)
+    else:
+        print("Digite novamente..")
 
 #-----Fim Funções do Segundo Grau-----#
+
+#-----Funções exponenciais-----#
+
+def valores_exponenciais():
+    a = float(input("Digite o valor de a: "))
+    b = float(input("Digite o valor de b: "))
+    return a, b
+
+def crescente_decrescente(a,b):
+    if a > 1:
+        print("A função é crescente")
+    elif a > 0 and a < 1:
+        print("A função é decrescente")
+
+def calc_funcao_x(a,b):
+    x = float(input("Digite o valor de X:"))
+    return (a*(b**x))
+
+def exponencial_grafico(a,b):
+    x = np.linspace(-10, 10, 1000)
+    y = a*b**x
+    plt.plot(x, y)
+    plt.show()
+
+def resultado_exponencial(calculo,a,b):
+    if calculo == "1":
+        crescente_decrescente(a,b)
+    elif calculo == "2":
+        print("O valor da função em x é: ", calc_funcao_x(a, b))
+    elif calculo == "3":
+        exponencial_grafico(a, b)
+    else:
+        print("Digite novamente..")
+
+#-----Fim Funções exponenciais-----#
+
+#-----Menu-----#
 
 def menu():
     while True:
@@ -94,9 +143,16 @@ def menu():
             resultado_conjuntos(calculo, valores[0], valores[1])
         elif menu == "2":
             valores = valores_funcao()
-            calculo = input("O que você deseja fazer?\n1) Calcular raízes\n2) Calcular valor da função em x\n3) Calcular vértice\n")
+            calculo = input("O que você deseja fazer?\n1) Calcular raízes\n2) Calcular valor da função em x\n3) Calcular vértice\n4) Ver Grafico")
             resultado_funcao(calculo, valores[0], valores[1], valores[2])
+        elif menu =="3":
+            valores = valores_exponenciais()
+            calculo = input("O que você deseja fazer?\n1) Verificar se a função é crescente ou decrescente\n2) Calcular a função em x\n3) Ver Grafico")
+            resultado_exponencial(calculo, valores[0], valores[1])
+
         else:
             print("Desculpe, não entendi. Por favor, digite: \n1) Conjuntos numéricos\n2)Funções do segundo grau\n3) Funções exponenciais\n4) Matrizes\n5) Sair\n")
+
+#-----Fim Menu-----#
 
 menu()
