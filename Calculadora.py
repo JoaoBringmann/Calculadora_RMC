@@ -75,9 +75,14 @@ def calcular_vertice(a, b, c):
         print("O vértice da função é, Maximo: ", xv, "e Minimo: ", yv)
 
 def segundo_grau_grafico(a,b,c):
-    x = np.linspace(-10, 10, 1000)
+    x = np.linspace(-100, 100, 1000)
     y = a*x**2 + b*x + c
     plt.plot(x, y)
+    plt.xlabel("Eixo X")
+    plt.ylabel("Eixo Y")
+    plt.grid(True)
+    plt.axhline(y=0, color="k")
+    plt.axvline(x=0, color="k")
     plt.show()
 
 def resultado_funcao(calculo, a, b, c):
@@ -112,9 +117,13 @@ def calc_funcao_x(a,b):
     return (a*(b**x))
 
 def exponencial_grafico(a,b):
-    x = np.linspace(-10, 10, 1000)
+    x = np.linspace(-100,100,1000)
     y = a*b**x
     plt.plot(x, y)
+    plt.xlabel("Eixo X")
+    plt.ylabel("Eixo Y")
+    plt.grid(True)
+    plt.axvline(x=0, color="k")
     plt.show()
 
 def resultado_exponencial(calculo,a,b):
