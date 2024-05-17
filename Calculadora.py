@@ -129,6 +129,90 @@ def resultado_exponencial(calculo,a,b):
 
 #-----Fim Funções exponenciais-----#
 
+#-----Funções das Matrizes-----#
+
+# Função para imprimir uma matriz
+def imprimir_matriz(matriz):
+    # Itera sobre cada linha da matriz
+    for linha in matriz:
+        # Itera sobre cada elemento da linha e imprime-o
+        print(linha)
+
+# Função para verificar se uma matriz é quadrada
+def eh_matriz_quadrada(matriz):
+    # Obtém o número de linhas da matriz
+    numero_linhas = len(matriz)
+    # Obtém o número de colunas da primeira linha da matriz
+    numero_colunas = len(matriz[0])
+    # Retorna True se o número de linhas for igual ao número de colunas, e False caso contrário
+    return numero_linhas == numero_colunas
+
+# Função para calcular o determinante de uma matriz 2x2
+def calcular_determinante_2x2(matriz):
+    a, b = matriz[0]
+    c, d = matriz[1]
+    # Calcula e retorna o determinante da matriz
+    return a * d - b * c
+
+# Função para calcular o determinante de uma matriz 3x3
+def calcular_determinante_3x3(matriz):
+    a, b, c = matriz[0]
+    d, e, f = matriz[1]
+    g, h, i = matriz[2]
+    # Calcula e retorna o determinante da matriz
+    return a * (e * i - f * h) - b * (d * i - f * g) + c * (d * h - e * g)
+
+# Função para multiplicar duas matrizes
+def multiplicar_matrizes(matriz1, matriz2):
+    # Obtém o número de linhas da primeira matriz e o número de colunas da segunda matriz
+    numero_linhas1 = len(matriz1)
+    numero_colunas1 = len(matriz1[0])
+    # Obtém o número de linhas da segunda matriz e o número de colunas da primeira matriz
+    numero_linhas2 = len(matriz2)
+    numero_colunas2 = len(matriz2[0])
+    
+    # Verifica se o número de colunas da primeira matriz é igual ao número de linhas da segunda matriz
+    if numero_colunas1!= numero_linhas2:
+        # Se não for, retorna uma mensagem indicando que a multiplicação não é possível
+        return "Multiplicação não possível"
+    
+    # Inicializa a matriz de resultado com o número de linhas da primeira matriz e o número de colunas da segunda matriz
+    resultado = []
+    for i in range(numero_linhas1):
+        linha_resultado = []
+        for j in range(numero_colunas2):
+            # Inicializa o elemento de resultado na posição i, j com 0
+            elemento = 0
+            # Itera sobre cada coluna da primeira matriz
+            for k in range(numero_colunas1):
+                # Multiplica os elementos correspondentes das duas matrizes e soma ao elemento de resultado
+                elemento += matriz1[i][k] * matriz2[k][j]
+            # Atualiza o elemento de resultado na posição i, j com o valor calculado
+            linha_resultado.append(elemento)
+        # Adiciona a linha de resultado à matriz de resultado
+        resultado.append(linha_resultado)
+    
+    # Retorna a matriz de resultado
+    return resultado
+
+# Função para calcular a transposta de uma matriz
+def calcular_transposta(matriz):
+    # Inicializa a matriz de resultado com o mesmo número de linhas e colunas da matriz de entrada
+    transposta = []
+    for j in range(len(matriz[0])):
+        # Itera sobre cada linha da matriz de entrada
+        for i in range(len(matriz)):
+            # Atualiza o elemento de resultado na posição j, i com o elemento correspondente da matriz de entrada
+            transposta.append(matriz[i][j])
+        # Adiciona a linha de resultado à matriz de resultado
+        transposta.append([])
+    # Remove a última linha vazia adicionada acidentalmente
+    transposta.pop()
+    # Retorna a matriz de resultado
+    return transposta
+
+#-----Fim Funções das Matrizes-----#
+
 #-----Menu-----#
 
 def menu():
