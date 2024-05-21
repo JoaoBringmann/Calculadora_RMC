@@ -181,7 +181,7 @@ def multiplicar_matrizes(matriz1, matriz2):
     numero_colunas2 = len(matriz2[0])
     
     # Verifica se o número de colunas da primeira matriz é igual ao número de linhas da segunda matriz
-    if numero_colunas1!= numero_linhas2:
+    if numero_colunas1 != numero_linhas2:
         # Se não for, retorna uma mensagem indicando que a multiplicação não é possível
         return "Multiplicação não possível"
     
@@ -226,14 +226,11 @@ def resultado_matriz(matriz, calculo, matriz1, matriz2):
         calcular_determinante_2x2(matriz)
         calcular_determinante_3x3(matriz)
     elif calculo == "2":
-        multiplicar_matrizes(matriz1, matriz2)
+        multiplicar_matrizes(matriz1,matriz2)
     elif calculo == "3":
         calcular_transposta(matriz)
     else:
         print("Digite Novamente")
-    
-
-    return
 
 #-----Fim Funções das Matrizes-----#
 
@@ -260,7 +257,7 @@ def menu():
         elif menu == "4":
             valores = resultado_matriz()
             calculo = input("O que você deseja fazer?\n1) Calcular determinante\n2) Multiplicar matrizes\n3) Calcular transposta\n")
-            resultado_matriz(valores[0], valores[1], valores[2], calculo, valores[3], valores[4])
+            resultado_matriz(calculo, valores[0], valores[1], valores[2])
 
 
         else:
