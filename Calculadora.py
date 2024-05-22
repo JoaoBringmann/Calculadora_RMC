@@ -220,18 +220,6 @@ def calcular_transposta(matriz):
     # Retorna a matriz de resultado
     return transposta
 
-def resultado_matriz(matriz, calculo, matriz1, matriz2):
-    imprimir_matriz(matriz)
-    if calculo == "1":
-        calcular_determinante_2x2(matriz)
-        calcular_determinante_3x3(matriz)
-    elif calculo == "2":
-        multiplicar_matrizes(matriz1,matriz2)
-    elif calculo == "3":
-        calcular_transposta(matriz)
-    else:
-        print("Digite Novamente")
-
 #-----Fim Funções das Matrizes-----#
 
 #-----Menu-----#
@@ -255,9 +243,7 @@ def menu():
             calculo = input("O que você deseja fazer?\n1) Verificar se a função é crescente ou decrescente\n2) Calcular a função em x\n3) Ver Grafico")
             resultado_exponencial(calculo, valores[0], valores[1])
         elif menu == "4":
-            valores = resultado_matriz()
-            calculo = input("O que você deseja fazer?\n1) Calcular determinante\n2) Multiplicar matrizes\n3) Calcular transposta\n")
-            resultado_matriz(calculo, valores[0], valores[1], valores[2])
+            calculo = input("O que você deseja fazer?\n1) Verificar se a função é crescente ou decrescente\n2) Calcular a função em x\n3) Ver Grafico")
 
 
         else:
