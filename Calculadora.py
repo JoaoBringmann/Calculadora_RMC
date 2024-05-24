@@ -141,26 +141,35 @@ def resultado_exponencial(calculo,a,b):
 #-----Funções das Matrizes-----#
 
 # Função para imprimir uma matriz
+
+def gerarmatriz(num_linhas,num_colunas):
+    matriz = []
+    #Criar um for para linhas
+    for l in range(num_linhas):
+        linha = []
+        for c in range(num_colunas):
+            elemento = int(input(f"Informe o elemento,{l}{c}: "))
+            linha.append(elemento)
+        #For de colunas acabou e a linha esta pronta
+        #Alienta a Matriz
+        matriz.append(linha)
+        #Aqui a matriz está pronta
+    return matriz
+
 def imprimir_matriz(matriz):
-    # Itera sobre cada linha da matriz
     for linha in matriz:
-        # Itera sobre cada elemento da linha e imprime-o
         print(linha)
 
 # Função para verificar se uma matriz é quadrada
 def eh_matriz_quadrada(matriz):
-    # Obtém o número de linhas da matriz
     numero_linhas = len(matriz)
-    # Obtém o número de colunas da primeira linha da matriz
     numero_colunas = len(matriz[0])
-    # Retorna True se o número de linhas for igual ao número de colunas, e False caso contrário
     return numero_linhas == numero_colunas
 
 # Função para calcular o determinante de uma matriz 2x2
 def calcular_determinante_2x2(matriz):
     a, b = matriz[0]
     c, d = matriz[1]
-    # Calcula e retorna o determinante da matriz
     return a * d - b * c
 
 # Função para calcular o determinante de uma matriz 3x3
@@ -168,15 +177,13 @@ def calcular_determinante_3x3(matriz):
     a, b, c = matriz[0]
     d, e, f = matriz[1]
     g, h, i = matriz[2]
-    # Calcula e retorna o determinante da matriz
     return a * (e * i - f * h) - b * (d * i - f * g) + c * (d * h - e * g)
 
 # Função para multiplicar duas matrizes
 def multiplicar_matrizes(matriz1, matriz2):
-    # Obtém o número de linhas da primeira matriz e o número de colunas da segunda matriz
     numero_linhas1 = len(matriz1)
     numero_colunas1 = len(matriz1[0])
-    # Obtém o número de linhas da segunda matriz e o número de colunas da primeira matriz
+
     numero_linhas2 = len(matriz2)
     numero_colunas2 = len(matriz2[0])
     
@@ -184,41 +191,39 @@ def multiplicar_matrizes(matriz1, matriz2):
     if numero_colunas1 != numero_linhas2:
         # Se não for, retorna uma mensagem indicando que a multiplicação não é possível
         return "Multiplicação não possível"
-    
-    # Inicializa a matriz de resultado com o número de linhas da primeira matriz e o número de colunas da segunda matriz
     resultado = []
     for i in range(numero_linhas1):
         linha_resultado = []
         for j in range(numero_colunas2):
-            # Inicializa o elemento de resultado na posição i, j com 0
             elemento = 0
-            # Itera sobre cada coluna da primeira matriz
             for k in range(numero_colunas1):
-                # Multiplica os elementos correspondentes das duas matrizes e soma ao elemento de resultado
                 elemento += matriz1[i][k] * matriz2[k][j]
-            # Atualiza o elemento de resultado na posição i, j com o valor calculado
             linha_resultado.append(elemento)
-        # Adiciona a linha de resultado à matriz de resultado
         resultado.append(linha_resultado)
-    
-    # Retorna a matriz de resultado
     return resultado
 
-# Função para calcular a transposta de uma matriz
 def calcular_transposta(matriz):
-    # Inicializa a matriz de resultado com o mesmo número de linhas e colunas da matriz de entrada
     transposta = []
     for j in range(len(matriz[0])):
-        # Itera sobre cada linha da matriz de entrada
         for i in range(len(matriz)):
-            # Atualiza o elemento de resultado na posição j, i com o elemento correspondente da matriz de entrada
             transposta.append(matriz[i][j])
-        # Adiciona a linha de resultado à matriz de resultado
         transposta.append([])
-    # Remove a última linha vazia adicionada acidentalmente
-    transposta.pop()
-    # Retorna a matriz de resultado
+    transposta.pop() #Teve um linha a mais
     return transposta
+
+def resultado_matriz(calculo,matriz):
+    if calculo == "1":
+        if eh_matriz_quadrada == True:
+            print("Determinante da matriz: ",calcular_determinante_3x3(matriz))
+        else:
+            print("Determinante da matriz: ",calcular_determinante_2x2(matriz))
+    elif calculo == "2":
+        matriz2 = gerarmatriz(int(input("Informe o numero de linhas da segunda matriz")), int(input("Informe o numero de colunas da segunda matriz")))
+        print(f"multiplicação: {multiplicar_matrizes(matriz,matriz2)}")
+    elif calculo == "3":
+        print(f"Transposta: {calcular_transposta(matriz)}")
+
+
 
 #-----Fim Funções das Matrizes-----#
 
@@ -243,8 +248,12 @@ def menu():
             calculo = input("O que você deseja fazer?\n1) Verificar se a função é crescente ou decrescente\n2) Calcular a função em x\n3) Ver Grafico")
             resultado_exponencial(calculo, valores[0], valores[1])
         elif menu == "4":
-            calculo = input("O que você deseja fazer?\n1) Verificar se a função é crescente ou decrescente\n2) Calcular a função em x\n3) Ver Grafico")
-
+            linhas = int(input("Informe o numero de linhas da matriz"))
+            colunas = int(input("Informe o numero de colunas da matriz"))
+            matriz = gerarmatriz(linhas,colunas)
+            imprimir_matriz(matriz)
+            calculo = input("O que você deseja fazer?\n1) Verificar se é matriz quadrada\n2) Multiplicação de Matriz\n3) Matriz Tranposta")
+            resultado_matriz(calculo,matriz)
 
         else:
             print("Desculpe, não entendi. Por favor, digite: \n1) Conjuntos numéricos\n2)Funções do segundo grau\n3) Funções exponenciais\n4) Matrizes\n5) Sair\n")
