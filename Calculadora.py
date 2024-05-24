@@ -41,9 +41,24 @@ def resultado_conjuntos(calculo, A, B):
 #-----Funções do Segundo Grau-----#
 
 def valores_funcao():
-    a = float(input("Digite o valor de a: "))
-    b = float(input("Digite o valor de b: "))
-    c = float(input("Digite o valor de c: "))
+    while True:
+        try:
+            a = float(input("Digite o valor de a: "))
+            break
+        except ValueError:
+            print("Erro: deve ser um número. Tente novamente!")
+    while True:
+        try:
+            b = float(input("Digite o valor de b: "))
+            break
+        except ValueError:
+            print("Erro: deve ser um número. Tente novamente!")
+    while True:
+        try:
+            c = float(input("Digite o valor de c: "))
+            break
+        except ValueError:
+            print("Erro: deve ser um número. Tente novamente!")
     return a, b, c
 
 def calc_delta(a, b, c):
@@ -102,8 +117,18 @@ def resultado_funcao(calculo, a, b, c):
 #-----Funções exponenciais-----#
 
 def valores_exponenciais():
-    a = float(input("Digite o valor de a: "))
-    b = float(input("Digite o valor de b: "))
+    while True:
+        try:
+            a = float(input("Digite o valor de a: "))
+            break
+        except ValueError:
+            print("Erro: deve ser um número. Tente novamente!")
+    while True:
+        try:
+            b = float(input("Digite o valor de b: "))
+            break
+        except ValueError:
+            print("Erro: deve ser um número. Tente novamente!")
     return a, b
 
 def crescente_decrescente(a):
@@ -113,7 +138,12 @@ def crescente_decrescente(a):
         print("A função é decrescente")
 
 def calc_funcao_x(a,b):
-    x = float(input("Digite o valor de X:"))
+    while True:
+        try:
+            x = float(input("Digite o valor de x: "))
+            break
+        except ValueError:
+            print("Erro: deve ser um número. Tente novamente!")
     return (a*(b**x))
 
 def exponencial_grafico(a,b):
@@ -128,7 +158,7 @@ def exponencial_grafico(a,b):
 
 def resultado_exponencial(calculo,a,b):
     if calculo == "1":
-        crescente_decrescente(a,b)
+        crescente_decrescente(a)
     elif calculo == "2":
         print("O valor da função em x é: ", calc_funcao_x(a, b))
     elif calculo == "3":
@@ -189,9 +219,9 @@ def multiplicar_matrizes(matriz1, matriz2):
     
     # Verifica se o número de colunas da primeira matriz é igual ao número de linhas da segunda matriz
     if numero_colunas1 != numero_linhas2:
-        # Se não for, retorna uma mensagem indicando que a multiplicação não é possível
-        return "Multiplicação não possível"
-    resultado = []
+        print("Multiplicação não possível")
+    else:
+        resultado = []
     for i in range(numero_linhas1):
         linha_resultado = []
         for j in range(numero_colunas2):
@@ -205,10 +235,10 @@ def multiplicar_matrizes(matriz1, matriz2):
 def calcular_transposta(matriz):
     transposta = []
     for j in range(len(matriz[0])):
+        linha = []
         for i in range(len(matriz)):
-            transposta.append(matriz[i][j])
-        transposta.append([])
-    transposta.pop() #Teve um linha a mais
+            linha.append(matriz[i][j])
+        transposta.append(linha)
     return transposta
 
 def resultado_matriz(calculo,matriz):
@@ -218,10 +248,23 @@ def resultado_matriz(calculo,matriz):
         else:
             print("Determinante da matriz: ",calcular_determinante_2x2(matriz))
     elif calculo == "2":
-        matriz2 = gerarmatriz(int(input("Informe o numero de linhas da segunda matriz")), int(input("Informe o numero de colunas da segunda matriz")))
-        print(f"multiplicação: {multiplicar_matrizes(matriz,matriz2)}")
+        matriz2 = gerarmatriz(int(input("Informe o número de linhas da segunda matriz: ")), int(input("Informe o número de colunas da segunda matriz: ")))
+        resultado = multiplicar_matrizes(matriz, matriz2)
+        if resultado is not None:
+            print("Matriz resultante:")
+            for linha in resultado:
+                print("[", end="")
+                for elemento in linha:
+                    print(elemento, end=",")
+                print("]")
     elif calculo == "3":
-        print(f"Transposta: {calcular_transposta(matriz)}")
+        print("Transposta:")
+        transposta = calcular_transposta(matriz)
+        for linha in transposta:
+            print("[", end="")
+            for elemento in linha:
+                print(elemento, end=",")
+            print("]")
 
 
 
@@ -252,11 +295,11 @@ def menu():
             colunas = int(input("Informe o numero de colunas da matriz"))
             matriz = gerarmatriz(linhas,colunas)
             imprimir_matriz(matriz)
-            calculo = input("O que você deseja fazer?\n1) Verificar se é matriz quadrada\n2) Multiplicação de Matriz\n3) Matriz Tranposta")
+            calculo = input("O que você deseja fazer?\n1) Determinante\n2) Multiplicação de Matriz\n3) Matriz Tranposta")
             resultado_matriz(calculo,matriz)
 
         else:
-            print("Desculpe, não entendi. Por favor, digite: \n1) Conjuntos numéricos\n2)Funções do segundo grau\n3) Funções exponenciais\n4) Matrizes\n5) Sair\n")
+            print("Desculpe, não entendi.")
 
 #-----Fim Menu-----#
 
