@@ -172,18 +172,14 @@ def resultado_exponencial(calculo,a,b):
 
 # Função para imprimir uma matriz
 
-def gerarmatriz(num_linhas,num_colunas):
+def gerarmatriz(num_linhas, num_colunas):
     matriz = []
-    #Criar um for para linhas
     for l in range(num_linhas):
-        linha = []
-        for c in range(num_colunas):
-            elemento = int(input(f"Informe o elemento,{l}{c}: "))
-            linha.append(elemento)
-        #For de colunas acabou e a linha esta pronta
-        #Alienta a Matriz
-        matriz.append(linha)
-        #Aqui a matriz está pronta
+                linha = []
+                for c in range(num_colunas):
+                    elemento = int(input(f"Informe o elemento,{l}{c}: "))
+                    linha.append(elemento)
+                matriz.append(linha)
     return matriz
 
 def imprimir_matriz(matriz):
@@ -192,18 +188,20 @@ def imprimir_matriz(matriz):
 
 # Função para verificar se uma matriz é quadrada
 def eh_matriz_quadrada(matriz):
-    numero_linhas = len(matriz)
-    numero_colunas = len(matriz[0])
-    return numero_linhas == numero_colunas
+    return len(matriz) == len(matriz[0])
 
 # Função para calcular o determinante de uma matriz 2x2
 def calcular_determinante_2x2(matriz):
+    if len(matriz) != 2 or len(matriz[0]) != 2:   #Verifica linha e coluna se é 2x2
+        return None
     a, b = matriz[0]
     c, d = matriz[1]
     return a * d - b * c
 
 # Função para calcular o determinante de uma matriz 3x3
 def calcular_determinante_3x3(matriz):
+    if len(matriz) != 3 or len(matriz[0]) != 3:
+        return None
     a, b, c = matriz[0]
     d, e, f = matriz[1]
     g, h, i = matriz[2]
@@ -241,30 +239,44 @@ def calcular_transposta(matriz):
         transposta.append(linha)
     return transposta
 
-def resultado_matriz(calculo,matriz):
+def resultado_matriz(calculo, matriz):
     if calculo == "1":
-        if eh_matriz_quadrada == True:
-            print("Determinante da matriz: ",calcular_determinante_3x3(matriz))
+        if matriz is not None and eh_matriz_quadrada(matriz):
+            if len(matriz) == 2:
+                print("Determinante da matriz: ", calcular_determinante_2x2(matriz))
+            elif len(matriz) == 3:
+                print("Determinante da matriz: ", calcular_determinante_3x3(matriz))
+            else:
+                print("Matriz não quadrada")
         else:
-            print("Determinante da matriz: ",calcular_determinante_2x2(matriz))
+            print("Matriz não quadrada ou nenhuma matriz fornecida")
     elif calculo == "2":
-        matriz2 = gerarmatriz(int(input("Informe o número de linhas da segunda matriz: ")), int(input("Informe o número de colunas da segunda matriz: ")))
-        resultado = multiplicar_matrizes(matriz, matriz2)
-        if resultado is not None:
-            print("Matriz resultante:")
-            for linha in resultado:
+        if matriz is not None:
+            matriz2 = gerarmatriz(int(input("Informe o número de linhas da segunda matriz: ")), int(input("Informe o número de colunas da segunda matriz: ")))
+            if matriz2 is not None:
+                resultado = multiplicar_matrizes(matriz, matriz2)
+                if resultado is not None:
+                    print("Matriz resultante:")
+                    for linha in resultado:
+                        print("[", end="")
+                        for elemento in linha:
+                            print(elemento, end=",")
+                        print("]")
+            else:
+                print("Nenhuma matriz fornecida para a segunda matriz")
+        else:
+            print("Nenhuma matriz fornecida")
+    elif calculo == "3":
+        if matriz is not None:
+            transposta = calcular_transposta(matriz)
+            print("Transposta:")
+            for linha in transposta:
                 print("[", end="")
                 for elemento in linha:
                     print(elemento, end=",")
                 print("]")
-    elif calculo == "3":
-        print("Transposta:")
-        transposta = calcular_transposta(matriz)
-        for linha in transposta:
-            print("[", end="")
-            for elemento in linha:
-                print(elemento, end=",")
-            print("]")
+        else:
+            print("Nenhuma matriz fornecida")
 
 
 
@@ -291,12 +303,19 @@ def menu():
             calculo = input("O que você deseja fazer?\n1) Verificar se a função é crescente ou decrescente\n2) Calcular a função em x\n3) Ver Grafico")
             resultado_exponencial(calculo, valores[0], valores[1])
         elif menu == "4":
-            linhas = int(input("Informe o numero de linhas da matriz"))
-            colunas = int(input("Informe o numero de colunas da matriz"))
-            matriz = gerarmatriz(linhas,colunas)
-            imprimir_matriz(matriz)
-            calculo = input("O que você deseja fazer?\n1) Determinante\n2) Multiplicação de Matriz\n3) Matriz Tranposta")
-            resultado_matriz(calculo,matriz)
+            while True:
+                linhas = int(input("Informe o numero de linhas da matriz"))
+                colunas = int(input("Informe o numero de colunas da matriz"))
+                min_menu = int(input("Digite 0 para voltar ou 1 para continuar: "))
+                if min_menu == 0:
+                    print("Voltando...")
+                    continue
+                elif min_menu == 1:
+                    matriz = gerarmatriz(linhas,colunas)
+                    imprimir_matriz(matriz)
+                    calculo = input("O que você deseja fazer?\n1) Determinante\n2) Multiplicação de Matriz\n3) Matriz Tranposta")
+                    resultado_matriz(calculo,matriz)
+                break
 
         else:
             print("Desculpe, não entendi.")
