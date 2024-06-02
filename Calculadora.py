@@ -292,52 +292,60 @@ def menu():
             break
         elif menu == "1":
             while True:
-                valores = valores_conjuntos()
                 min_menu = int(input("Digite 0 para voltar ou 1 para continuar: "))
                 if min_menu == 0:
                     print("Voltando...")
                     continue
                 elif min_menu == 1:
+                    valores = valores_conjuntos()
                     calculo = input("O que você deseja fazer?\n1) União de conjuntos\n2) Intersecção de conjuntos\n3) Diferença de conjuntos\n4) Verificação de subconjunto Próprio\n")
                     resultado_conjuntos(calculo, valores[0], valores[1])
                     break
+                else:
+                    print("Digite Novamente")
         elif menu == "2":
             while True:
-                valores = valores_funcao()
                 min_menu = int(input("Digite 0 para voltar ou 1 para continuar: "))
                 if min_menu == 0:
                     print("Voltando...")
                     continue
                 elif min_menu == 1:
+                    valores = valores_funcao()
                     calculo = input("O que você deseja fazer?\n1) Calcular raízes\n2) Calcular valor da função em x\n3) Calcular vértice\n4) Ver Grafico")
                     resultado_funcao(calculo, valores[0], valores[1], valores[2])
                     break
+                else:
+                    print("Digite Novamente")
         elif menu =="3":
             while True:
-                valores = valores_exponenciais()
                 min_menu = int(input("Digite 0 para voltar ou 1 para continuar: "))
                 if min_menu == 0:
                     print("Voltando...")
                     continue
                 elif min_menu == 1:
+                    valores = valores_exponenciais()
                     calculo = input("O que você deseja fazer?\n1) Verificar se a função é crescente ou decrescente\n2) Calcular a função em x\n3) Ver Grafico")
                     resultado_exponencial(calculo, valores[0], valores[1])
                     break
+                else:
+                    print("Digite Novamente")
 
         elif menu == "4":
             while True:
-                linhas = int(input("Informe o numero de linhas da matriz"))
-                colunas = int(input("Informe o numero de colunas da matriz"))
                 min_menu = int(input("Digite 0 para voltar ou 1 para continuar: "))
                 if min_menu == 0:
                     print("Voltando...")
                     continue
                 elif min_menu == 1:
+                    linhas = int(input("Informe o numero de linhas da matriz"))
+                    colunas = int(input("Informe o numero de colunas da matriz"))
                     matriz = gerarmatriz(linhas,colunas)
                     imprimir_matriz(matriz)
                     calculo = input("O que você deseja fazer?\n1) Determinante\n2) Multiplicação de Matriz\n3) Matriz Tranposta")
                     resultado_matriz(calculo,matriz)
                     break
+                else: 
+                    print("Digite Novamente")
 
         else:
             print("Desculpe, não entendi.")
