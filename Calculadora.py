@@ -24,17 +24,17 @@ def verificar_subconjunto_proprio(A, B):
         return False
 
 def resultado_conjuntos(calculo, A, B):
-    if calculo == "1":
-        print("União: ", uniao_conjuntos(A, B))
-    elif calculo == "2":
-        print("Intersecção: ", interseccao_conjuntos(A, B))
-    elif calculo == "3":
-        print("Diferença: ", diferenca_conjuntos(A, B))
-    elif calculo == "4":
-        if verificar_subconjunto_proprio(A, B):
-            print("A é um subconjunto próprio de B")
-        else:
-            print("A não é um subconjunto próprio de B")
+        if calculo == "1":
+            print("União: ", uniao_conjuntos(A, B))
+        elif calculo == "2":
+            print("Intersecção: ", interseccao_conjuntos(A, B))
+        elif calculo == "3":
+            print("Diferença: ", diferenca_conjuntos(A, B))
+        elif calculo == "4":
+            if verificar_subconjunto_proprio(A, B):
+                print("A é um subconjunto próprio de B")
+            else:
+                print("A não é um subconjunto próprio de B")
 
 #-----Fim Funções dos conjuntos-----#
 
@@ -67,10 +67,14 @@ def calc_delta(a, b, c):
 def calc_baskara(a, b, c):
     calc_delta_value = calc_delta(a, b, c)
     if calc_delta_value < 0:
-        print("Não existe raiz real")
+        parte_real = -b / (2 * a)
+        parte_imaginaria = (-calc_delta_value)**0.5 / (2 * a)
+        x1 = complex(parte_real, parte_imaginaria)
+        x2 = complex(parte_real, -parte_imaginaria)
+        print("Existem duas raízes complexas: ", x1, "e", x2)
     else:
-        x1 = (((-1)*b) + (calc_delta_value**0.5))/(2*a)
-        x2 = (((-1)*b) - (calc_delta_value**0.5))/(2*a)
+        x1 = (-b + calc_delta_value**0.5) / (2 * a)
+        x2 = (-b - calc_delta_value**0.5) / (2 * a)
         if x1 == x2:
             print("Existe apenas uma raiz real: ", x1)
         else:
@@ -101,16 +105,16 @@ def segundo_grau_grafico(a,b,c):
     plt.show()
 
 def resultado_funcao(calculo, a, b, c):
-    if calculo == "1":
-        calc_baskara(a, b, c)
-    elif calculo == "2":
-        print("O valor da função em x é: ", função_em_x_pedido(a, b, c))
-    elif calculo == "3":
-        calcular_vertice(a, b, c)
-    elif calculo == "4":
-        segundo_grau_grafico(a, b, c)
-    else:
-        print("Digite novamente..")
+        if calculo == "1":
+            calc_baskara(a, b, c)
+        elif calculo == "2":
+            print("O valor da função em x é: ", função_em_x_pedido(a, b, c))
+        elif calculo == "3":
+            calcular_vertice(a, b, c)
+        elif calculo == "4":
+            segundo_grau_grafico(a, b, c)
+        else:
+            print("Digite novamente..")
 
 #-----Fim Funções do Segundo Grau-----#
 
@@ -157,14 +161,14 @@ def exponencial_grafico(a,b):
     plt.show()
 
 def resultado_exponencial(calculo,a,b):
-    if calculo == "1":
-        crescente_decrescente(a)
-    elif calculo == "2":
-        print("O valor da função em x é: ", calc_funcao_x(a, b))
-    elif calculo == "3":
-        exponencial_grafico(a, b)
-    else:
-        print("Digite novamente..")
+        if calculo == "1":
+            crescente_decrescente(a)
+        elif calculo == "2":
+            print("O valor da função em x é: ", calc_funcao_x(a, b))
+        elif calculo == "3":
+            exponencial_grafico(a, b)
+        else:
+            print("Digite novamente..")
 
 #-----Fim Funções exponenciais-----#
 
@@ -175,12 +179,19 @@ def resultado_exponencial(calculo,a,b):
 def gerarmatriz(num_linhas, num_colunas):
     matriz = []
     for l in range(num_linhas):
-                linha = []
-                for c in range(num_colunas):
-                    elemento = int(input(f"Informe o elemento,{l}{c}: "))
+        linha = []
+        for c in range(num_colunas):
+            while True:
+                elemento = input(f"Informe o elemento [{l}][{c}]: ")
+                if elemento.isdigit():
+                    elemento = int(elemento)
                     linha.append(elemento)
-                matriz.append(linha)
+                    break
+                else:
+                    print("Entrada inválida. Por favor, digite um número inteiro.")
+        matriz.append(linha)
     return matriz
+
 
 def imprimir_matriz(matriz):
     for linha in matriz:
@@ -219,15 +230,15 @@ def multiplicar_matrizes(matriz1, matriz2):
     if numero_colunas1 != numero_linhas2:
         print("Multiplicação não possível")
     else:
-        resultado = []
-    for i in range(numero_linhas1):
-        linha_resultado = []
-        for j in range(numero_colunas2):
-            elemento = 0
-            for k in range(numero_colunas1):
-                elemento += matriz1[i][k] * matriz2[k][j]
-            linha_resultado.append(elemento)
-        resultado.append(linha_resultado)
+            resultado = []
+            for i in range(numero_linhas1):
+             linha_resultado = []
+            for j in range(numero_colunas2):
+                elemento = 0
+                for k in range(numero_colunas1):
+                    elemento += matriz1[i][k] * matriz2[k][j]
+                linha_resultado.append(elemento)
+            resultado.append(linha_resultado)
     return resultado
 
 def calcular_transposta(matriz):
@@ -240,43 +251,43 @@ def calcular_transposta(matriz):
     return transposta
 
 def resultado_matriz(calculo, matriz):
-    if calculo == "1":
-        if matriz is not None and eh_matriz_quadrada(matriz):
-            if len(matriz) == 2:
-                print("Determinante da matriz: ", calcular_determinante_2x2(matriz))
-            elif len(matriz) == 3:
-                print("Determinante da matriz: ", calcular_determinante_3x3(matriz))
+        if calculo == "1":
+            if matriz is not None and eh_matriz_quadrada(matriz):
+                if len(matriz) == 2:
+                    print("Determinante da matriz: ", calcular_determinante_2x2(matriz))
+                elif len(matriz) == 3:
+                    print("Determinante da matriz: ", calcular_determinante_3x3(matriz))
+                else:
+                    print("Matriz não quadrada")
             else:
-                print("Matriz não quadrada")
-        else:
-            print("Matriz não quadrada ou nenhuma matriz fornecida")
-    elif calculo == "2":
-        if matriz is not None:
-            matriz2 = gerarmatriz(int(input("Informe o número de linhas da segunda matriz: ")), int(input("Informe o número de colunas da segunda matriz: ")))
-            if matriz2 is not None:
-                resultado = multiplicar_matrizes(matriz, matriz2)
-                if resultado is not None:
-                    print("Matriz resultante:")
-                    for linha in resultado:
-                        print("[", end="")
-                        for elemento in linha:
-                            print(elemento, end=",")
-                        print("]")
+                print("Matriz não quadrada ou nenhuma matriz fornecida")
+        elif calculo == "2":
+            if matriz is not None:
+                matriz2 = gerarmatriz(int(input("Informe o número de linhas da segunda matriz: ")), int(input("Informe o número de colunas da segunda matriz: ")))
+                if matriz2 is not None:
+                    resultado = multiplicar_matrizes(matriz, matriz2)
+                    if resultado is not None:
+                        print("Matriz resultante:")
+                        for linha in resultado:
+                            print("[", end="")
+                            for elemento in linha:
+                                print(elemento, end=",")
+                            print("]")
+                else:
+                    print("Nenhuma matriz fornecida para a segunda matriz")
             else:
-                print("Nenhuma matriz fornecida para a segunda matriz")
-        else:
-            print("Nenhuma matriz fornecida")
-    elif calculo == "3":
-        if matriz is not None:
-            transposta = calcular_transposta(matriz)
-            print("Transposta:")
-            for linha in transposta:
-                print("[", end="")
-                for elemento in linha:
-                    print(elemento, end=",")
-                print("]")
-        else:
-            print("Nenhuma matriz fornecida")
+                print("Nenhuma matriz fornecida")
+        elif calculo == "3":
+            if matriz is not None:
+                transposta = calcular_transposta(matriz)
+                print("Transposta:")
+                for linha in transposta:
+                    print("[", end="")
+                    for elemento in linha:
+                        print(elemento, end=",")
+                    print("]")
+            else:
+                print("Nenhuma matriz fornecida")
 
 
 
@@ -292,68 +303,59 @@ def menu():
             break
         elif menu == "1":
             while True:
-                min_menu = int(input("Digite 0 para voltar ou 1 para continuar: "))
-                if min_menu == 0:
-                    print("Voltando...")
-                    break
-                elif min_menu == 1:
-                    valores = valores_conjuntos()
-                    while True:
-                        calculo = input("O que você deseja fazer?\n1) União de conjuntos\n2) Intersecção de conjuntos\n3) Diferença de conjuntos\n4) Verificação de subconjunto Próprio\n")
-                        if calculo in ["1", "2", "3", "4"]:
-                            resultado_conjuntos(calculo, valores[0], valores[1])
-                            break
-                        else:
-                            print("Digite Novamente")
+                valores = valores_conjuntos()
+                calculo = input("O que você deseja fazer?\n1) União de conjuntos\n2) Intersecção de conjuntos\n3) Diferença de conjuntos\n4) Verificação de subconjunto Próprio\n5) Voltar\n")
+                if calculo in ["1", "2", "3", "4","5"]:
+                    if calculo == "5":
+                        print("Voltando...")
+                        continue
+                    else:
+                        resultado_conjuntos(calculo, valores[0], valores[1])
+                        break
+                else:
+                        print("Digite Novamente")
         elif menu == "2":
-            while True:
-                min_menu = int(input("Digite 0 para voltar ou 1 para continuar: "))
-                if min_menu == 0:
-                    print("Voltando...")
-                    break
-                elif min_menu == 1:
-                    valores = valores_funcao()
                     while True:
-                        calculo = input("O que você deseja fazer?\n1) Calcular raízes\n2) Calcular valor da função em x\n3) Calcular vértice\n4) Ver Grafico")
-                        if calculo in ["1", "2", "3", "4"]:
-                            resultado_funcao(calculo, valores[0], valores[1], valores[2])
-                            break
+                        valores = valores_funcao()
+                        calculo = input("O que você deseja fazer?\n1) Calcular raízes\n2) Calcular valor da função em x\n3) Calcular vértice\n4) Ver Grafico\n5) Voltar\n")
+                        if calculo in ["1", "2", "3", "4","5"]:
+                            if calculo == "5":
+                                    print("Voltando...")
+                                    continue
+                            else:
+                                    resultado_funcao(calculo, valores[0], valores[1], valores[2])
+                                    break
                         else:
-                            print("Digite Novamente")
+                                print("Digite Novamente")
         elif menu == "3":
-            while True:
-                min_menu = int(input("Digite 0 para voltar ou 1 para continuar: "))
-                if min_menu == 0:
-                    print("Voltando...")
-                    break
-                elif min_menu == 1:
-                    valores = valores_exponenciais()
                     while True:
-                        calculo = input("O que você deseja fazer?\n1) Verificar se a função é crescente ou decrescente\n2) Calcular a função em x\n3) Ver Grafico")
-                        if calculo in ["1", "2", "3"]:
-                            resultado_exponencial(calculo, valores[0], valores[1])
-                            break
+                        valores = valores_exponenciais()
+                        calculo = input("O que você deseja fazer?\n1) Verificar se a função é crescente ou decrescente\n2) Calcular a função em x\n3) Ver Grafico\n4) Voltar\n")
+                        if calculo in ["1", "2", "3","4"]:
+                                if calculo == "4":
+                                    print("Voltando...")
+                                    continue
+                                else:
+                                    resultado_exponencial(calculo, valores[0], valores[1])
+                                    break
                         else:
-                            print("Digite Novamente")
-
+                                print("Digite Novamente")
         elif menu == "4":
-            while True:
-                min_menu = int(input("Digite 0 para voltar ou 1 para continuar: "))
-                if min_menu == 0:
-                    print("Voltando...")
-                    break
-                elif min_menu == 1:
-                    linhas = int(input("Informe o numero de linhas da matriz"))
-                    colunas = int(input("Informe o numero de colunas da matriz"))
-                    matriz = gerarmatriz(linhas,colunas)
-                    imprimir_matriz(matriz)
                     while True:
-                        calculo = input("O que você deseja fazer?\n1) Determinante\n2) Multiplicação de Matriz\n3) Matriz Tranposta")
-                        if calculo in ["1", "2", "3"]:
-                            resultado_matriz(calculo,matriz)
-                            break
-                        else:
-                            print("Digite Novamente")
+                         linhas = int(input("Informe o numero de linhas da matriz"))
+                         colunas = int(input("Informe o numero de colunas da matriz"))
+                         matriz = gerarmatriz(linhas,colunas)
+                         imprimir_matriz(matriz)
+                         calculo = input("O que você deseja fazer?\n1) Determinante\n2) Multiplicação de Matriz\n3) Matriz Tranposta\n4) Voltar\n")
+                         if calculo in ["1", "2", "3","4"]:
+                                    if calculo == "4":
+                                        print("Voltando...")
+                                        continue
+                                    else:
+                                        resultado_matriz(calculo,matriz)
+                                        break
+                         else:   
+                                    print("Digite Novamente")
         else:
             print("Desculpe, não entendi.")
 
