@@ -315,7 +315,7 @@ def menu():
                     valores = valores_funcao()
                     while True:
                         calculo = input("O que você deseja fazer?\n1) Calcular raízes\n2) Calcular valor da função em x\n3) Calcular vértice\n4) Ver Grafico")
-                        if calculo == "1" or "2" or "3" or "4":
+                        if calculo in ["1", "2", "3", "4"]:
                             resultado_funcao(calculo, valores[0], valores[1], valores[2])
                             break
                         else:
